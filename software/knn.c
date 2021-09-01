@@ -11,10 +11,10 @@
 
 #ifdef DEBUG //type make DEBUG=1 to print debug info
 #define S 12  //random seed
-#define N 10  //data set size
+#define N 5  //data set size
 #define K 4   //number of neighbours (K)
-#define C 4   //number data classes
-#define M 4   //number samples to be classified
+#define C 2   //number data classes
+#define M 1   //number samples to be classified
 #else
 #define S 12   
 #define N 100000
@@ -77,6 +77,8 @@ int main() {
   uart_txwait();
 
   timer_init(TIMER_BASE);
+  printf("\nInit knn\n");
+  knn_init(KNN_BASE);
   //read current timer count, compute elapsed time
   //elapsed  = timer_get_count();
   //elapsedu = timer_time_us();
@@ -142,8 +144,8 @@ int main() {
 #endif
     for (int i=0; i<N; i++) { //for all dataset points
       //compute distance to x[k]
-      unsigned int d = sq_dist(x[k], data[i]);
-
+      //unsigned int d = sq_dist(x[k], data[i]);
+      unsigned long long d = distance(x[k].x, data[i].x, x[k].y, data[i].y);
       //insert in ordered list
       for (int j=0; j<K; j++)
         if ( d < neighbor[j].dist ) {
@@ -202,6 +204,9 @@ int main() {
   for (int l=0; l<C; l++)
     printf("%d ", votes_acc[l]);
   printf("\n");
+  printf("done");
+
+  uart_finish();
   
 }
 

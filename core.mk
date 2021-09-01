@@ -12,7 +12,7 @@ KNN_SUBMODULES_DIR:=$(KNN_DIR)/submodules
 KNN_SUBMODULES:=INTERCON LIB TEX
 $(foreach p, $(KNN_SUBMODULES), $(eval $p_DIR:=$(KNN_DIR)/submodules/$p))
 
-REMOTE_ROOT_DIR ?= sandbox/iob-soc/submodules/KNN
+REMOTE_ROOT_DIR ?= keval/sandbox/iob-soc/submodules/KNN
 
 #
 #SIMULATION
@@ -34,7 +34,7 @@ SIM_DIR ?=hardware/simulation/$(SIMULATOR)
 FPGA_FAMILY ?=XCKU
 #FPGA_SERVER ?=localhost
 FPGA_SERVER ?=pudim-flan.iobundle.com
-FPGA_USER ?= $(USER)
+FPGA_USER ?= trainee
 
 ifeq ($(FPGA_FAMILY),XCKU)
 	FPGA_COMP:=vivado

@@ -33,13 +33,19 @@ module iob_knn
    knn_core knn0
      (
       .KNN_ENABLE(KNN_ENABLE),
+      .KNN_X1(KNN_X1),
+      .KNN_X2(KNN_X2),
+      .KNN_Y1(KNN_Y1),
+      .KNN_Y2(KNN_Y2),
+      .KNN_VALUE(KNN_VALUE),
       .clk(clk),
       .rst(rst_int)
       );
-   
+
+    assign  KNN_VALUE_LOW = KNN_VALUE[DATA_W-1:0];
+    assign  KNN_VALUE_HIGH = KNN_VALUE[2*DATA_W-1:DATA_W];
    
    //ready signal   
-   `SIGNAL(ready_int, 1)
    `REG_AR(clk, rst, 0, ready_int, valid)
 
    `SIGNAL2OUT(ready, ready_int)

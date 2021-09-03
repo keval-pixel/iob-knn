@@ -7,13 +7,27 @@
 `define KNN_X2_ADDR 3
 `define KNN_Y1_ADDR 4
 `define KNN_Y2_ADDR 5
+<<<<<<< HEAD
 `define KNN_VALUE_ADDR 6
+=======
+`define KNN_VALUE_HIGH_ADDR 6
+`define KNN_VALUE_LOW_ADDR 7
+>>>>>>> a877c3779eccbcf1c619e40f182b529488e6d7dd
 
 //registers width
 `define KNN_RESET_W 1
 `define KNN_ENABLE_W 1
+<<<<<<< HEAD
 `define KNN_X1_W DATA_W/2
 `define KNN_X2_W DATA_W/2
 `define KNN_Y1_W DATA_W/2
 `define KNN_Y2_W DATA_W/2
 `define KNN_VALUE_W DATA_W
+=======
+`define KNN_X1_W DATA_W
+`define KNN_X2_W DATA_W
+`define KNN_Y1_W DATA_W
+`define KNN_Y2_W DATA_W
+`define KNN_VALUE_HIGH_W DATA_W
+`define KNN_VALUE_LOW_W DATA_W
+>>>>>>> a877c3779eccbcf1c619e40f182b529488e6d7dd

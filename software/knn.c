@@ -11,16 +11,16 @@
 
 #ifdef DEBUG //type make DEBUG=1 to print debug info
 #define S 12  //random seed
-#define N 5  //data set size
-#define K 4   //number of neighbours (K)
-#define C 2   //number data classes
-#define M 1   //number samples to be classified
+#define N 10  //data set size
+#define K 5   //number of neighbours (K)
+#define C 4   //number data classes
+#define M 4   //number samples to be classified
 #else
-#define S 12   
-#define N 100000
-#define K 10  
-#define C 4  
-#define M 100 
+#define S 12  //random seed
+#define N 10  //data set size
+#define K 5   //number of neighbours (K)
+#define C 4   //number data classes
+#define M 4   //number samples to be classified
 #endif
 
 #define INFINITE ~0
@@ -77,8 +77,7 @@ int main() {
   uart_txwait();
 
   timer_init(TIMER_BASE);
-  printf("\nInit knn\n");
-  knn_init(KNN_BASE);
+  
   //read current timer count, compute elapsed time
   //elapsed  = timer_get_count();
   //elapsedu = timer_time_us();
@@ -127,6 +126,8 @@ int main() {
   //
 
   //start knn here
+  printf("\nInit knn\n");
+  knn_init(KNN_BASE);
   
   for (int k=0; k<M; k++) { //for all test points
   //compute distances to dataset points
@@ -144,8 +145,8 @@ int main() {
 #endif
     for (int i=0; i<N; i++) { //for all dataset points
       //compute distance to x[k]
-      //unsigned int d = sq_dist(x[k], data[i]);
-      unsigned long long d = distance(x[k].x, data[i].x, x[k].y, data[i].y);
+      unsigned int d = sq_dist(x[k], data[i]);
+      //unsigned int d = distance(x[k].x, data[i].x, x[k].y, data[i].y);
       //insert in ordered list
       for (int j=0; j<K; j++)
         if ( d < neighbor[j].dist ) {
@@ -156,6 +157,7 @@ int main() {
 #ifdef DEBUG
       //dataset
       printf("%d \t%d \t%d \t%d \t%d\n", i, data[i].x, data[i].y, data[i].label, d);
+      // printf("%d \t%d \t%d \t%d \t%d\n", i, data[i].x, data[i].y, data[i].label, d1);
 #endif
 
     }
@@ -195,6 +197,7 @@ int main() {
   } //all test points classified
 
   //stop knn here
+  knn_stop();
   //read current timer count, compute elapsed time
   elapsedu = timer_time_us(TIMER_BASE);
   printf("\nExecution time: %dus @%dMHz\n\n", elapsedu, FREQ/1000000);

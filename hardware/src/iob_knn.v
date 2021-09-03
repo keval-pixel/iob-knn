@@ -29,7 +29,7 @@ module iob_knn
    //
    //BLOCK 64-bit time counter & Free-running 64-bit counter with enable and soft reset capabilities
    //
-   `SIGNAL_OUT(KNN_VALUE, 2*DATA_W)
+   
    knn_core knn0
      (
       .KNN_ENABLE(KNN_ENABLE),
@@ -41,9 +41,6 @@ module iob_knn
       .clk(clk),
       .rst(rst_int)
       );
-
-    assign  KNN_VALUE_LOW = KNN_VALUE[DATA_W-1:0];
-    assign  KNN_VALUE_HIGH = KNN_VALUE[2*DATA_W-1:DATA_W];
    
    //ready signal   
    `REG_AR(clk, rst, 0, ready_int, valid)

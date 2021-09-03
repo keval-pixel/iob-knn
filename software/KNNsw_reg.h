@@ -7,5 +7,4 @@
 #define KNN_X2 3
 #define KNN_Y1 4
 #define KNN_Y2 5
-#define KNN_VALUE_HIGH 6
-#define KNN_VALUE_LOW 7
+#define KNN_VALUE 6

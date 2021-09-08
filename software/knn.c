@@ -4,6 +4,8 @@
 #include "iob_timer.h"
 #include "iob_knn.h"
 #include "random.h" //random generator for bare metal
+#include "KNNsw_reg.h"
+#include "interconnect.h"
 #include "printf.h" 
 
 //uncomment to use rand from C lib 
@@ -70,13 +72,13 @@ int main() {
 
   unsigned long long elapsed;
   unsigned int elapsedu;
-
+  static int base;
   //init uart and timer
   uart_init(UART_BASE, FREQ/BAUD);
   printf("\nInit timer\n");
   uart_txwait();
-
   timer_init(TIMER_BASE);
+  
   
   //read current timer count, compute elapsed time
   //elapsed  = timer_get_count();
@@ -127,7 +129,7 @@ int main() {
 
   //start knn here
   printf("\nInit knn\n");
-  knn_init(KNN_BASE);
+  base = knn_init(KNN_BASE);
   
   for (int k=0; k<M; k++) { //for all test points
   //compute distances to dataset points
@@ -145,8 +147,11 @@ int main() {
 #endif
     for (int i=0; i<N; i++) { //for all dataset points
       //compute distance to x[k]
+      //IO_SET(base, KNN_X1, x[k].x);
+      //IO_SET(base, KNN_Y1, x[k].y);
       unsigned int d = sq_dist(x[k], data[i]);
-      //unsigned int d = distance(x[k].x, data[i].x, x[k].y, data[i].y);
+      //unsigned int d = distance(data[i].x, data[i].y);
+      //unsigned int d = distance(x[k].x, data[i].x,x[k].y, data[i].y);
       //insert in ordered list
       for (int j=0; j<K; j++)
         if ( d < neighbor[j].dist ) {
